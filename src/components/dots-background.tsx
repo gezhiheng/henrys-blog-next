@@ -92,7 +92,7 @@ export default function DotsBackground() {
     const draw = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      const t = Date.now() / 5000;
+      const t = Date.now() / 2500;
 
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = "#ffffff";

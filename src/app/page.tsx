@@ -36,7 +36,7 @@ export default function Home() {
           代码之外和工作之余，我喜欢打游戏、追番、阅读、打篮球、看球赛和弹尤克里里。喜欢的书包括《只是为了好玩》、《哈利·波特》和《明朝那些事儿》。另外我还是斯蒂芬库里和金州勇士的忠实球迷，Let&apos;s go Warriors!
         </p>
         <p className="text-base text-muted-foreground md:text-lg">
-          现在的人生目标是找到一个真正热爱的方向，长期深耕，同时也不牺牲对生活本身的享受。对我来说，在离开世界之前，一切都只是过程。
+          目前在不断探索与尝试，希望找到一个真正热爱的方向，长期投入，同时也保留对生活本身的感受与享受。对我而言，在离开世界之前，一切都只是过程。
         </p>
       </section>
 
@@ -58,7 +58,7 @@ export default function Home() {
           {latestPosts.map((post) => (
             <article key={post.slug} className="space-y-2">
               <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-4">
-                <span className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+                <span className="text-xs text-muted-foreground">
                   {post.formattedDate}
                 </span>
                 <Link
