@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { getAllPosts, getPostBySlug } from "../../../lib/posts";
+import BackLink from "@/components/back-link";
+import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { siteConfig } from "@/lib/site";
 
 type PostPageProps = {
@@ -52,15 +52,15 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <article className="mx-auto max-w-3xl space-y-8">
-      <header className="space-y-5">
+      <header className="space-y-4">
         <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
           <span>{post.formattedDate}</span>
           <span aria-hidden>•</span>
           <span>{post.readingTime}</span>
         </div>
-        <h1 className="text-4xl font-semibold md:text-5xl">{post.title}</h1>
+        <h1 className="text-3xl font-semibold md:text-4xl">{post.title}</h1>
         <p className="text-lg text-muted-foreground">{post.description}</p>
-        {post.tags.length > 0 ? (
+        {post && post.tags && post.tags.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {post.tags.map((tag) => (
               <Badge key={tag} variant="secondary" className="rounded-full">
@@ -80,14 +80,12 @@ export default async function PostPage({ params }: PostPageProps) {
         }}
       />
 
-    <Link
-      href="/"
-      className="text-sm text-muted-foreground underline decoration-border underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground"
-      aria-label="返回首页"
-    >
-      &gt; cd home
-    </Link>
-    
+      <BackLink
+        fallbackHref="/posts"
+        className="text-sm text-muted-foreground underline decoration-border underline-offset-4 transition-colors hover:text-foreground hover:decoration-foreground"
+        label="> cd .."
+        ariaLabel="返回"
+      />
     </article>
   );
 }
