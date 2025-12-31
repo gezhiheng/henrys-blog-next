@@ -43,7 +43,7 @@ export default function Home() {
       <Separator />
 
       <section className="space-y-6" id="archive">
-        <div className="flex items-end justify-between">
+        <div className="flex items-center justify-between">
           <div className="space-y-2">
             <h2 className="text-2xl font-semibold">最近</h2>
           </div>
