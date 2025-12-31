@@ -1,5 +1,5 @@
 ---
-title: "JavaScript 使用生成器时不写分号出现的问题"
+title: "JavaScript不写分号时出现的问题"
 description: "Issues Caused by Omitting Semicolons When Using Generators in JavaScript"
 date: "2022-12-12"
 tags: ["JavaScript", "笔记"]
