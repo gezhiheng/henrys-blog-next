@@ -39,7 +39,7 @@ export default function PostsPage() {
             <div className="space-y-5">
               {postsByYear[year].map((post) => (
                 <article key={post.slug} className="space-y-2">
-                  <div className="flex flex-wrap items-baseline gap-3">
+                  <div className="flex md:flex-row flex-col flex-wrap items-baseline gap-3">
                     <Link
                       href={`/posts/${post.slug}`}
                       className="text-lg font-medium text-foreground transition-colors hover:text-muted-foreground"
