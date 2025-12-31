@@ -23,7 +23,7 @@ export default function PostCard({ post }: PostCardProps) {
         <p className="text-sm leading-relaxed text-muted-foreground">
           {post.description}
         </p>
-        {post.tags.length > 0 ? (
+        {post && post.tags && post.tags.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {post.tags.map((tag) => (
               <Badge key={tag} variant="secondary" className="rounded-full">
