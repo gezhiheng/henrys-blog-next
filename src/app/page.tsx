@@ -27,7 +27,7 @@ export default function Home() {
           Hey! 我是葛智恒，A.K.A. Henry Ge，一名前端开发工程师。
         </p>
         <p className="text-base text-muted-foreground md:text-lg">
-          目前工作中主要使用 Vue 及其周边工具链，偶尔参与开源。做过 Java 开发，也曾在创业公司独立负责过项目。最近对 React / Next.js 感兴趣，正在系统学习中。
+          目前工作中主要使用 Vue 及其周边工具链，偶尔参与开源。做过 Java 开发，也曾在创业公司独立负责过项目。最近对 React.js / Next.js 感兴趣，正在系统学习中。
         </p>
         <p className="text-base text-muted-foreground md:text-lg">
           我一直以来的观念是「不给自己设限」，所以有什么感兴趣的技术都会接触。比如曾经学过一段时间 Rust，很喜欢它明确语义的设计哲学和优雅的错误处理。
