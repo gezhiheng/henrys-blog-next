@@ -9,21 +9,21 @@
 - `types/`: shared TypeScript type declarations.
 
 ## Build, Test, and Development Commands
-- `npm run dev`: start local dev server with hot reload.
-- `npm run build`: build the production bundle.
-- `npm run start`: run the production server after build.
-- `npm run lint`: run ESLint checks.
+- `pnpm dev`: start local dev server with hot reload.
+- `pnpm build`: build the production bundle.
+- `pnpm start`: run the production server after build.
+- `pnpm lint`: run ESLint checks.
 
 ## Coding Style & Naming Conventions
 - Language: TypeScript + React (Next.js). Use 2-space indentation and keep JSX tidy.
 - Components: `PascalCase` filenames (e.g., `PostCard`, `SiteHeader`).
 - Utilities: `camelCase` exports in `src/lib/`.
 - Styling: Tailwind CSS utility classes; avoid custom CSS unless necessary.
-- Linting: ESLint via `npm run lint`. No formatter is configured; keep changes minimal and consistent.
+- Linting: ESLint via `pnpm lint`. No formatter is configured; keep changes minimal and consistent.
 
 ## Testing Guidelines
 - No automated test framework is currently configured.
-- If adding tests, document the framework and add a `npm run test` script.
+- If adding tests, document the framework and add a `pnpm test` script.
 - Name tests by feature and location (e.g., `posts.test.tsx`) when introduced.
 
 ## Commit & Pull Request Guidelines
