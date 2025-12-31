@@ -74,14 +74,12 @@ jobs:
           port: ${{ secrets.DEPLOY_PORT || 22 }}
           script: |
             set -e
-            sudo -iu deployer bash -lc '
-              cd ~/projects/henrys-blog-next
-              docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" -p "${{ secrets.GHCR_TOKEN }}"
-              docker pull "${{ env.IMAGE_NAME }}:latest"
-              docker stop henrys-blog-next || true
-              docker rm henrys-blog-next || true
-              docker run -d --restart unless-stopped \
-                --name henrys-blog-next \
-                -p 3000:3000 \
-                "${{ env.IMAGE_NAME }}:latest"
-            '
+            cd ~/projects/henrys-blog-next
+            docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" -p "${{ secrets.GHCR_TOKEN }}"
+            docker pull "${{ env.IMAGE_NAME }}:latest"
+            docker stop henrys-blog-next || true
+            docker rm henrys-blog-next || true
+            docker run -d --restart unless-stopped \
+              --name henrys-blog-next \
+              -p 3000:3000 \
+              "${{ env.IMAGE_NAME }}:latest"
