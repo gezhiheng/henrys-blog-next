@@ -82,7 +82,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
       <BackLink
         fallbackHref="/posts"
-        className="px-2 py-1 font-mono underline underline-offset-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+        className="py-1 font-mono underline underline-offset-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
         label="> cd .."
         ariaLabel="返回"
       />
