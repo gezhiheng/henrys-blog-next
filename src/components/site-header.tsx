@@ -1,12 +1,21 @@
- "use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { BookOpenText, FolderKanban, Home, Github, Twitter } from "lucide-react";
+import {
+  BookOpenText,
+  FolderKanban,
+  Home,
+  Github,
+  Twitter,
+  Moon,
+  Sun,
+} from "lucide-react";
 import { siteConfig } from "@/lib/site";
 
 export default function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +26,19 @@ export default function SiteHeader() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const isDark = document.documentElement.classList.contains("dark");
+    setTheme(isDark ? "dark" : "light");
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    document.documentElement.classList.toggle("dark", nextTheme === "dark");
+    document.documentElement.style.colorScheme = nextTheme;
+    localStorage.setItem("theme", nextTheme);
+  };
 
   return (
     <header
@@ -63,6 +85,18 @@ export default function SiteHeader() {
           >
             <Twitter className="h-4.5 w-4.5" />
           </Link>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
+            aria-label="Toggle dark mode"
+          >
+            {theme === "dark" ? (
+              <Sun className="h-4.5 w-4.5" />
+            ) : (
+              <Moon className="h-4.5 w-4.5" />
+            )}
+          </button>
         </nav>
       </div>
     </header>

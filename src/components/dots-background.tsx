@@ -93,9 +93,10 @@ export default function DotsBackground() {
       const width = window.innerWidth;
       const height = window.innerHeight;
       const t = Date.now() / 2500;
+      const isDark = document.documentElement.classList.contains("dark");
 
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "#ffffff";
+      ctx.fillStyle = isDark ? "#000000" : "#ffffff";
       ctx.fillRect(0, 0, width, height);
 
       for (const p of pointsRef.current) {
