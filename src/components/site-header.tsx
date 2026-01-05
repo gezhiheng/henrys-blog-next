@@ -15,7 +15,14 @@ import { siteConfig } from "@/lib/site";
 
 export default function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    if (typeof document !== "undefined") {
+      return document.documentElement.classList.contains("dark")
+        ? "dark"
+        : "light";
+    }
+    return "light";
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,11 +32,6 @@ export default function SiteHeader() {
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const isDark = document.documentElement.classList.contains("dark");
-    setTheme(isDark ? "dark" : "light");
   }, []);
 
   const toggleTheme = () => {
