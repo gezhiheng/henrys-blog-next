@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation'
 
 type BackLinkProps = {
   fallbackHref?: string;
@@ -10,29 +10,29 @@ type BackLinkProps = {
 };
 
 export default function BackLink({
-  fallbackHref = "/",
+  fallbackHref = '/',
   className,
-  label = "> cd ..",
-  ariaLabel = "返回",
+  label = '> cd ..',
+  ariaLabel = '返回',
 }: BackLinkProps) {
-  const router = useRouter();
+  const router = useRouter()
 
   const handleClick = () => {
-    if (typeof window !== "undefined" && window.history.length > 1) {
-      router.back();
-      return;
+    if (typeof window !== 'undefined' && window.history.length > 1) {
+      router.back()
+      return
     }
-    router.push(fallbackHref);
-  };
+    router.push(fallbackHref)
+  }
 
   return (
     <button
-      type="button"
+      type='button'
       onClick={handleClick}
       className={className}
       aria-label={ariaLabel}
     >
       {label}
     </button>
-  );
+  )
 }

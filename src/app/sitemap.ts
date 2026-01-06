@@ -1,9 +1,9 @@
-import type { MetadataRoute } from "next";
-import { getAllPosts } from "../lib/posts";
-import { siteConfig } from "@/lib/site";
+import type { MetadataRoute } from 'next'
+import { getAllPosts } from '../lib/posts'
+import { siteConfig } from '@/lib/site'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const posts = getAllPosts();
+  const posts = getAllPosts()
 
   return [
     {
@@ -18,5 +18,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteConfig.url}/posts/${post.slug}`,
       lastModified: new Date(post.date),
     })),
-  ];
+  ]
 }

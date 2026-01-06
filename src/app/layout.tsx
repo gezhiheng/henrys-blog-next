@@ -1,27 +1,27 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Merriweather } from "next/font/google";
-import SiteFooter from "@/components/site-footer";
-import SiteHeader from "@/components/site-header";
-import DotsBackground from "@/components/dots-background";
-import { siteConfig } from "@/lib/site";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { Inter, JetBrains_Mono, Merriweather } from 'next/font/google'
+import SiteFooter from '@/components/site-footer'
+import SiteHeader from '@/components/site-header'
+import DotsBackground from '@/components/dots-background'
+import { siteConfig } from '@/lib/site'
+import './globals.css'
 
 const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
+  variable: '--font-inter',
+  subsets: ['latin'],
+})
 
 const merriweather = Merriweather({
-  variable: "--font-merriweather",
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+  variable: '--font-merriweather',
+  weight: ['400', '700'],
+  subsets: ['latin'],
+})
 
 const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  weight: ["400", "500", "600"],
-  subsets: ["latin"],
-});
+  variable: '--font-jetbrains-mono',
+  weight: ['400', '500', '600'],
+  subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -31,22 +31,22 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   icons: {
-    icon: "/favicon.svg",
+    icon: '/favicon.svg',
   },
   openGraph: {
     title: siteConfig.title,
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,
-    type: "website",
-    locale: "zh_CN",
+    type: 'website',
+    locale: 'zh_CN',
   },
   twitter: {
-    card: "summary_large_image",
+    card: 'summary_large_image',
     title: siteConfig.title,
     description: siteConfig.description,
   },
-};
+}
 
 export default function RootLayout({
   children,
@@ -54,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" suppressHydrationWarning>
+    <html lang='zh-CN' suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -71,15 +71,15 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${merriweather.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        <div className="min-h-screen">
+        <div className='min-h-screen'>
           <DotsBackground />
           <SiteHeader />
-          <main className="mx-auto w-full max-w-5xl px-6 pb-16 pt-10">
+          <main className='mx-auto w-full max-w-5xl px-6 pb-16 pt-10'>
             {children}
           </main>
           <SiteFooter />
         </div>
       </body>
     </html>
-  );
+  )
 }
