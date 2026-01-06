@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import BackLink from '@/components/back-link'
+import CommentsSection from '@/components/comments-section'
 import { getAllPosts, getPostBySlug } from '@/lib/posts'
 import { siteConfig } from '@/lib/site'
 
@@ -79,6 +80,10 @@ export default async function PostPage({ params }: PostPageProps) {
           __html: post.contentHtml.trim() ? post.contentHtml : post.content,
         }}
       />
+
+      <Separator />
+
+      <CommentsSection />
 
       <BackLink
         fallbackHref='/posts'
