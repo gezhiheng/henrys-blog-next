@@ -20,6 +20,8 @@
 - Utilities: `camelCase` exports in `src/lib/`.
 - Styling: Tailwind CSS utility classes; avoid custom CSS unless necessary.
 - Linting: ESLint via `pnpm lint`. No formatter is configured; keep changes minimal and consistent.
+ - Quotes: Prefer single quotes for JS/TS and JSX attributes.
+ - Semicolons: Omit semicolons (enforced via ESLint `semi: never`).
 
 ## Testing Guidelines
 - No automated test framework is currently configured.

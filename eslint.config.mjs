@@ -13,6 +13,14 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  // Project style rules: single quotes, no semicolons
+  {
+    rules: {
+      quotes: ["error", "single", { avoidEscape: true, allowTemplateLiterals: true }],
+      semi: ["error", "never"],
+      "jsx-quotes": ["error", "prefer-single"],
+    },
+  },
 ]);
 
 export default eslintConfig;
