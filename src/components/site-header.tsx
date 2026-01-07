@@ -17,20 +17,19 @@ import { siteConfig } from '@/lib/site'
 export default function SiteHeader () {
   const [isScrolled, setIsScrolled] = useState(false)
   type Theme = 'light' | 'dark' | 'system'
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('theme')
-      if (stored === 'dark' || stored === 'light') return stored as Theme
-      return 'system'
+  const [theme, setTheme] = useState<Theme>('system')
+  const [systemPrefersDark, setSystemPrefersDark] = useState<boolean>(false)
+
+  // Read theme from localStorage after mount to avoid hydration mismatch
+  useEffect(() => {
+    const stored = localStorage.getItem('theme')
+    if (stored === 'dark' || stored === 'light') {
+      setTheme(stored as Theme)
     }
-    return 'system'
-  })
-  const [systemPrefersDark, setSystemPrefersDark] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches
-    }
-    return false
-  })
+    setSystemPrefersDark(
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    )
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
