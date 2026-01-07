@@ -24,11 +24,15 @@ export default function SiteHeader () {
   useEffect(() => {
     const stored = localStorage.getItem('theme')
     if (stored === 'dark' || stored === 'light') {
-      setTheme(stored as Theme)
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setTheme(stored)
     }
-    setSystemPrefersDark(
-      window.matchMedia('(prefers-color-scheme: dark)').matches
-    )
+
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSystemPrefersDark(prefersDark)
   }, [])
 
   useEffect(() => {
