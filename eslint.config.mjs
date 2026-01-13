@@ -1,26 +1,31 @@
-import { defineConfig, globalIgnores } from 'eslint/config'
-import nextVitals from 'eslint-config-next/core-web-vitals'
-import nextTs from 'eslint-config-next/typescript'
+import antfu from '@antfu/eslint-config'
+import nextPlugin from '@next/eslint-plugin-next'
 
-const eslintConfig = defineConfig([
-  ...nextVitals,
-  ...nextTs,
-  // Override default ignores of eslint-config-next.
-  globalIgnores([
-    // Default ignores of eslint-config-next:
-    '.next/**',
-    'out/**',
-    'build/**',
-    'next-env.d.ts',
-  ]),
-  // Project style rules: single quotes, no semicolons
+const base = antfu(
   {
+    react: true,
+  },
+  { ignores: ['*.md'] },
+)
+
+base.append([
+  {
+    name: 'next',
+    plugins: { '@next/next': nextPlugin },
     rules: {
-      quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
-      semi: ['error', 'never'],
-      'jsx-quotes': ['error', 'prefer-single'],
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
+      '@next/next/no-duplicate-head': 'off',
+      '@next/next/no-img-element': 'error',
+      '@next/next/no-page-custom-font': 'off',
+      'react-hooks-extra/no-direct-set-state-in-use-effect': 'off',
+      'react/no-use-context': 'off',
     },
   },
 ])
 
-export default eslintConfig
+base.overrideRules({
+  'antfu/if-newline': 'off',
+})
+
+export default base
