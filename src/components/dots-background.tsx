@@ -6,7 +6,7 @@ const SCALE = 200
 const LENGTH = 10
 const SPACING = 15
 
-type Point = { x: number; y: number; opacity: number };
+interface Point { x: number, y: number, opacity: number }
 
 function hash3(x: number, y: number, z: number) {
   const v = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453
@@ -106,8 +106,8 @@ export default function DotsBackground() {
         const length = (noise3(nx, ny, t * 2) + 0.5) * LENGTH
         const x = p.x + Math.cos(rad) * length
         const y = p.y + Math.sin(rad) * length
-        const alpha =
-          (Math.abs(Math.cos(rad)) * 0.5 + 0.5) * p.opacity * 0.45
+        const alpha
+          = (Math.abs(Math.cos(rad)) * 0.5 + 0.5) * p.opacity * 0.45
         ctx.fillStyle = `rgba(180, 180, 180, ${alpha})`
         ctx.beginPath()
         ctx.arc(x, y, 1, 0, Math.PI * 2)
@@ -133,8 +133,8 @@ export default function DotsBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className='pointer-events-none fixed inset-0 -z-10'
-      aria-hidden='true'
+      className="pointer-events-none fixed inset-0 -z-10"
+      aria-hidden="true"
     />
   )
 }

@@ -67,12 +67,12 @@ var once = function(fn) {
 使用JavaScript闭包很容易在不知不觉中造成内存泄漏,请看下面的例子:
 
 ```
-let outer = function() { 
-   let name = 'Jake'; 
- return function() { 
-   return name; 
- }; 
-}; 
+let outer = function() {
+   let name = 'Jake';
+ return function() {
+   return name;
+ };
+};
 ```
 
 调用 outer()会导致分配给 name 的内存被泄漏。以上代码执行后创建了一个内部闭包，只要返回 的函数存在就不能清理 name，因为闭包一直在引用着它。假如 name 的内容很大（不止是一个小字符 串），那可能就是个大问题了。 ---出自JavaScript高级程序设计

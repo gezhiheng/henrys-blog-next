@@ -1,20 +1,20 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import {
   BookOpenText,
   FolderKanban,
-  Home,
   Github,
-  Twitter,
+  Home,
+  Laptop,
   Moon,
   Sun,
-  Laptop
+  Twitter,
 } from 'lucide-react'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { siteConfig } from '@/lib/site'
 
-export default function SiteHeader () {
+export default function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false)
   type Theme = 'light' | 'dark' | 'system'
   const [theme, setTheme] = useState<Theme>('system')
@@ -24,14 +24,13 @@ export default function SiteHeader () {
   useEffect(() => {
     const stored = localStorage.getItem('theme')
     if (stored === 'dark' || stored === 'light') {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTheme(stored)
     }
 
     const prefersDark = window.matchMedia(
-      '(prefers-color-scheme: dark)'
+      '(prefers-color-scheme: dark)',
     ).matches
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setSystemPrefersDark(prefersDark)
   }, [])
 
@@ -48,8 +47,8 @@ export default function SiteHeader () {
   // Keep DOM in sync with current theme state (resolving system preference)
   useEffect(() => {
     if (typeof document !== 'undefined') {
-      const resolved =
-        theme === 'system' ? (systemPrefersDark ? 'dark' : 'light') : theme
+      const resolved
+        = theme === 'system' ? (systemPrefersDark ? 'dark' : 'light') : theme
       document.documentElement.classList.toggle('dark', resolved === 'dark')
       document.documentElement.style.colorScheme = resolved
     }
@@ -86,13 +85,14 @@ export default function SiteHeader () {
     const nextOrder: Record<Theme, Theme> = {
       dark: 'light',
       light: 'system',
-      system: 'dark'
+      system: 'dark',
     }
     const nextTheme = nextOrder[theme]
     setTheme(nextTheme)
     if (nextTheme === 'system') {
       localStorage.removeItem('theme')
-    } else {
+    }
+    else {
       localStorage.setItem('theme', nextTheme)
     }
   }
@@ -105,56 +105,60 @@ export default function SiteHeader () {
           : 'border-b border-transparent bg-transparent'
       }`}
     >
-      <div className='mx-auto flex w-full max-w-2xl items-center justify-end px-6 py-3 md:px-0'>
-        <nav className='flex items-center gap-2 md:gap-3'>
+      <div className="mx-auto flex w-full max-w-2xl items-center justify-end px-6 py-3 md:px-0">
+        <nav className="flex items-center gap-2 md:gap-3">
           <Link
-            href='/'
-            className='rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground'
-            aria-label='Home'
+            href="/"
+            className="rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
+            aria-label="Home"
           >
-            <Home className='h-4.5 w-4.5' />
+            <Home className="h-4.5 w-4.5" />
           </Link>
           <Link
-            href='/posts'
-            className='rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground'
-            aria-label='Blog'
+            href="/posts"
+            className="rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
+            aria-label="Blog"
           >
-            <BookOpenText className='h-4.5 w-4.5' />
+            <BookOpenText className="h-4.5 w-4.5" />
           </Link>
           <Link
-            href='/projects'
-            className='rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground'
-            aria-label='Projects'
+            href="/projects"
+            className="rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
+            aria-label="Projects"
           >
-            <FolderKanban className='h-4.5 w-4.5' />
+            <FolderKanban className="h-4.5 w-4.5" />
           </Link>
           <Link
             href={siteConfig.links.github}
-            className='rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground'
-            aria-label='Github'
+            className="rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
+            aria-label="Github"
           >
-            <Github className='h-4.5 w-4.5' />
+            <Github className="h-4.5 w-4.5" />
           </Link>
           <Link
             href={siteConfig.links.twitter}
-            className='rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground'
-            aria-label='Twitter'
+            className="rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
+            aria-label="Twitter"
           >
-            <Twitter className='h-4.5 w-4.5' />
+            <Twitter className="h-4.5 w-4.5" />
           </Link>
           <button
-            type='button'
+            type="button"
             onClick={toggleTheme}
-            className='rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground'
-            aria-label='Toggle dark mode'
+            className="rounded-full p-2 text-muted-foreground transition-colors hover:text-foreground"
+            aria-label="Toggle dark mode"
           >
-            {theme === 'system' ? (
-              <Laptop className='h-4.5 w-4.5' />
-            ) : theme === 'dark' ? (
-              <Sun className='h-4.5 w-4.5' />
-            ) : (
-              <Moon className='h-4.5 w-4.5' />
-            )}
+            {theme === 'system'
+              ? (
+                  <Laptop className="h-4.5 w-4.5" />
+                )
+              : theme === 'dark'
+                ? (
+                    <Sun className="h-4.5 w-4.5" />
+                  )
+                : (
+                    <Moon className="h-4.5 w-4.5" />
+                  )}
           </button>
         </nav>
       </div>

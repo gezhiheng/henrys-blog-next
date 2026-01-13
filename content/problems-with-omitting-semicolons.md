@@ -11,10 +11,10 @@ tags: ["JavaScript", "笔记"]
 
 ```javascript
 function* fibonacciSequence() {
-  let x = 0, y = 1;
+  let x = 0; let y = 1
   for (;;) {
     yield y;
-    [x, y] = [y, x + y];
+    [x, y] = [y, x + y]
   }
 }
 ```
@@ -23,10 +23,10 @@ function* fibonacciSequence() {
 
 ```javascript
 function* fibonacciSequence() {
-  let x = 0, y = 1
+  const x = 0; const y = 1
   for (;;) {
     yield y
-    [x, y] = [y, x + y]
+      [x, y] = [y, x + y]
   }
 }
 ```
@@ -35,7 +35,7 @@ function* fibonacciSequence() {
 
 ```javascript
 function fibonacci(n) {
-  for (let f of fibonacciSequence()) {
+  for (const f of fibonacciSequence()) {
     if (n-- <= 0) {
       return f
     }
@@ -49,10 +49,10 @@ function fibonacci(n) {
 fibonacci(20) // => [1, 1]
 ```
 
-这显然不符合预期。  
+这显然不符合预期。
 正常情况下，第 20 个斐波那契数应该是 `10946`。
 
-JavaScript 解释器本身存在 ASI（Automatic Semicolon Insertion）机制，也就是自动插入分号。  
+JavaScript 解释器本身存在 ASI（Automatic Semicolon Insertion）机制，也就是自动插入分号。
 从直觉来看，这两段代码唯一的区别只是是否写了分号，因此初步判断是 ASI 并没有按照期望的方式插入分号。
 
 ---
@@ -63,7 +63,7 @@ ECMAScript 标准中定义的 ASI 包括三条规则和两条例外。
 
 ### 三条规则
 
-1. 解析器从左到右解析代码（读入 token）。  
+1. 解析器从左到右解析代码（读入 token）。
    当遇到一个无法构成合法语句的 token 时，解析器会在以下情况中尝试在该 token 之前插入分号，这个不合群的 token 被称为 offending token：
    - 如果该 token 与前一个 token 之间存在至少一个换行
    - 如果该 token 是 `}`
@@ -100,9 +100,9 @@ yield y
 
 ```javascript
 function* fibonacciSequence() {
-  let x = 0, y = 1;
+  const x = 0; const y = 1
   for (;;) {
-    yield y[x, y] = [y, x + y];
+    yield y[x, y] = [y, x + y]
   }
 }
 ```

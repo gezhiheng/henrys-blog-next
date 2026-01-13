@@ -64,7 +64,7 @@ fn4.call(obj4)
 ```javascript
 const coder = {
   name: 'henry',
-  fn: function() {
+  fn() {
     return this
   }
 }
@@ -78,7 +78,7 @@ const person = {
   name: 'henry',
   girlfriend: {
     name: 'dilireba',
-    fn: function() {
+    fn() {
       return this.name
     }
   }
@@ -102,7 +102,7 @@ const coder = {
 console.log(coder.fn() === coder) // false
 ```
 
-箭头函数没有自己的this作用域，所以会继承外部作用域的this，一个极端点的例子: 
+箭头函数没有自己的this作用域，所以会继承外部作用域的this，一个极端点的例子:
 
 ```javascript
 const person1 = {
@@ -130,7 +130,7 @@ console.log(person1.person2.person3.person4.person5.fn()) // undefined
 
 ```javascript
 function foo() {
-  return a => {
+  return (a) => {
     console.log(this.a)
   }
 }

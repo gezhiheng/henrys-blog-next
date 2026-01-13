@@ -2,32 +2,32 @@ import fs from 'node:fs'
 import path from 'node:path'
 import matter from 'gray-matter'
 import readingTime from 'reading-time'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeSlug from 'rehype-slug'
+import rehypeStringify from 'rehype-stringify'
 import { remark } from 'remark'
 import remarkGfm from 'remark-gfm'
 import remarkRehype from 'remark-rehype'
-import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypeStringify from 'rehype-stringify'
 import { visit } from 'unist-util-visit'
 import { formatDate, formatReadingTime } from '@/lib/format'
 
-export type PostFrontmatter = {
-  title: string;
-  description: string;
-  date: string;
-  tags?: string[];
-};
+export interface PostFrontmatter {
+  title: string
+  description: string
+  date: string
+  tags?: string[]
+}
 
 export type PostMeta = PostFrontmatter & {
-  slug: string;
-  readingTime: string;
-  formattedDate: string;
-};
+  slug: string
+  readingTime: string
+  formattedDate: string
+}
 
 export type Post = PostMeta & {
-  content: string;
-  contentHtml: string;
-};
+  content: string
+  contentHtml: string
+}
 
 const postsDirectory = path.join(process.cwd(), 'content')
 
@@ -38,7 +38,7 @@ function getPostFilePaths() {
 
   return fs
     .readdirSync(postsDirectory)
-    .filter((fileName) => fileName.endsWith('.md'))
+    .filter(fileName => fileName.endsWith('.md'))
 }
 
 function getSlugFromFileName(fileName: string) {

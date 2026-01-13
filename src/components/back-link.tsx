@@ -2,12 +2,12 @@
 
 import { useRouter } from 'next/navigation'
 
-type BackLinkProps = {
-  fallbackHref?: string;
-  className?: string;
-  label?: string;
-  ariaLabel?: string;
-};
+interface BackLinkProps {
+  fallbackHref?: string
+  className?: string
+  label?: string
+  ariaLabel?: string
+}
 
 export default function BackLink({
   fallbackHref = '/',
@@ -27,7 +27,7 @@ export default function BackLink({
 
   return (
     <button
-      type='button'
+      type="button"
       onClick={handleClick}
       className={className}
       aria-label={ariaLabel}

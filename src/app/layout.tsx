@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono, Merriweather } from 'next/font/google'
+import DotsBackground from '@/components/dots-background'
 import SiteFooter from '@/components/site-footer'
 import SiteHeader from '@/components/site-header'
-import DotsBackground from '@/components/dots-background'
 import { siteConfig } from '@/lib/site'
 import './globals.css'
 
@@ -51,10 +51,10 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang='zh-CN' suppressHydrationWarning>
+    <html lang="zh-CN" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -71,10 +71,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${merriweather.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        <div className='min-h-screen'>
+        <div className="min-h-screen">
           <DotsBackground />
           <SiteHeader />
-          <main className='mx-auto w-full max-w-5xl px-6 pb-16 pt-10'>
+          <main className="mx-auto w-full max-w-5xl px-6 pb-16 pt-10">
             {children}
           </main>
           <SiteFooter />
