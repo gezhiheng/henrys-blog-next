@@ -46,6 +46,7 @@ base.append([
       'style/comma-dangle': 'off',
       'style/space-before-function-paren': 'off',
       'style/jsx-quotes': 'off',
+      'style/space-infix-ops': 'off',
     },
   },
 ])
