@@ -5,10 +5,14 @@ const base = antfu(
   {
     react: true,
   },
-  { ignores: ['*.md'] },
+  { ignores: ['**/*.md'] },
 )
 
 base.append([
+  {
+    name: 'project-ignores',
+    ignores: ['**/*.md'],
+  },
   {
     name: 'next',
     plugins: { '@next/next': nextPlugin },
@@ -20,6 +24,20 @@ base.append([
       '@next/next/no-page-custom-font': 'off',
       'react-hooks-extra/no-direct-set-state-in-use-effect': 'off',
       'react/no-use-context': 'off',
+    },
+  },
+  {
+    name: 'project-overrides',
+    files: ['src/app/**/*.{ts,tsx}'],
+    rules: {
+      'react-dom/no-dangerously-set-innerhtml': 'off',
+    },
+  },
+  {
+    name: 'shadcn-ui-overrides',
+    files: ['src/components/ui/**/*.{ts,tsx}'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
     },
   },
 ])
