@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
 import {
   Card,
@@ -14,7 +15,7 @@ interface Project {
   href: string
   tags: string[]
   description?: string
-  imgURL?: string
+  img?: string
 }
 
 export default function ProjectsPage () {
@@ -29,35 +30,43 @@ export default function ProjectsPage () {
 
       <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
         {projects.map((project: Project) => (
-          <Card
+          <Link
             key={project.title}
-            className='flex flex-col border-border/60 bg-card/60 transition-shadow hover:shadow-md'
+            href={project.href}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='group'
           >
-            <CardHeader>
-              <CardTitle className='text-lg'>
-                <Link
-                  href={project.href}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='hover:underline underline-offset-4'
-                >
+            <Card className='flex h-full flex-col overflow-hidden border-border/60 bg-card/60 transition-shadow hover:shadow-md'>
+              {project.img && (
+                <div className='relative w-full aspect-video border-b border-border/60'>
+                  <Image
+                    src={project.img}
+                    alt={project.title}
+                    fill
+                    className='object-cover'
+                  />
+                </div>
+              )}
+              <CardHeader>
+                <CardTitle className='text-lg group-hover:underline underline-offset-4'>
                   {project.title}
-                </Link>
-              </CardTitle>
-              <CardDescription className='line-clamp-3'>
-                {project.description ?? ''}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className='mt-auto'>
-              <div className='flex flex-wrap gap-2'>
-                {project.tags.map(tag => (
-                  <Badge key={tag} variant='secondary'>
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                </CardTitle>
+                <CardDescription className='line-clamp-3'>
+                  {project.description ?? ''}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className='mt-auto'>
+                <div className='flex flex-wrap gap-2'>
+                  {project.tags.map(tag => (
+                    <Badge key={tag} variant='secondary'>
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
         ))}
       </div>
     </div>
