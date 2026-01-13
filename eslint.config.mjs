@@ -40,6 +40,14 @@ base.append([
       'react-refresh/only-export-components': 'off',
     },
   },
+  {
+    name: 'pages-style-overrides',
+    rules: {
+      'style/comma-dangle': 'off',
+      'style/space-before-function-paren': 'off',
+      'style/jsx-quotes': 'off',
+    },
+  },
 ])
 
 base.overrideRules({
