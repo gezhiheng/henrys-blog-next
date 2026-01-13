@@ -18,7 +18,7 @@ const projects = [
     href: 'https://showcase.gezhiheng.site/face2bot.html',
     img: '/images/projects-intro/face2bot.png',
     description: '人脸映射控制仿生机械头',
-    tags: ['Mediapipe', 'Vue'],
+    tags: ['Mediapipe', 'Vue', '串口通信'],
   },
   {
     title: 'HDriveGUI',
@@ -32,7 +32,7 @@ const projects = [
     href: 'https://www.npmjs.com/package/crt-fe',
     img: '/images/projects-intro/crt-fe.png',
     description: '一键初始化前端项目模板的命令行工具',
-    tags: ['Node'],
+    tags: ['Node', 'CLI'],
   },
   {
     title: '文件转档应用',
