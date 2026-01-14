@@ -3,7 +3,7 @@ const projects = [
     title: 'ibuild',
     href: 'https://github.com/gezhiheng/ibuild',
     img: '/images/projects-intro/ibuild.png',
-    description: 'ibuild 是一个 Rust CLI 工具，用于构建多个前端项目并将它们的产物合并到同一个 dist 目录下',
+    description: '一个 Rust CLI 工具，用于构建多个前端项目并将它们的产物合并到同一个 dist 目录下',
     tags: ['Rust', 'CLI'],
   },
   {
@@ -38,7 +38,7 @@ const projects = [
     title: '文件转档应用',
     href: 'https://github.com/gezhiheng/file-transformer-app',
     img: '/images/projects-intro/file-transformer-app.png',
-    description: '一个自动将机台档案转为Excel文件的跨平台应用',
+    description: '自动将机台档案转为Excel文件的跨平台应用',
     tags: ['Electron', 'TypeScript', 'Vue'],
   },
   {
