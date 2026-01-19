@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import projects from './projects-array'
+import projects, { tagStyles } from './projects-array'
 
 interface Project {
   title: string
@@ -59,7 +59,14 @@ export default function ProjectsPage () {
               <CardContent className='mt-auto'>
                 <div className='flex flex-wrap gap-2'>
                   {project.tags.map(tag => (
-                    <Badge key={tag} variant='secondary'>
+                    <Badge
+                      key={tag}
+                      variant='outline'
+                      className={
+                        tagStyles[tag]
+                        ?? 'border-border/60 bg-muted/40 text-muted-foreground dark:bg-muted/20'
+                      }
+                    >
                       {tag}
                     </Badge>
                   ))}
