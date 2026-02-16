@@ -94,6 +94,7 @@ export default function DotsBackground() {
       const height = window.innerHeight
       const t = Date.now() / 2500
       const isDark = document.documentElement.classList.contains('dark')
+      const dotRgb = isDark ? '100, 100, 100' : '180, 180, 180'
 
       ctx.clearRect(0, 0, width, height)
       ctx.fillStyle = isDark ? '#000000' : '#ffffff'
@@ -108,7 +109,7 @@ export default function DotsBackground() {
         const y = p.y + Math.sin(rad) * length
         const alpha
           = (Math.abs(Math.cos(rad)) * 0.5 + 0.5) * p.opacity * 0.45
-        ctx.fillStyle = `rgba(180, 180, 180, ${alpha})`
+        ctx.fillStyle = `rgba(${dotRgb}, ${alpha})`
         ctx.beginPath()
         ctx.arc(x, y, 1, 0, Math.PI * 2)
         ctx.fill()
