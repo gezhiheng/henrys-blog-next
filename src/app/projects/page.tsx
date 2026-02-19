@@ -18,6 +18,11 @@ interface Project {
   img?: string
 }
 
+export const metadata = {
+  title: 'Projects',
+  description: `A collection of projects I&apos;m working on and have worked on.`
+}
+
 export default function ProjectsPage () {
   return (
     <div className='space-y-12 min-h-screen max-w-2xl mx-auto'>
