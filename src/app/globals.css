@@ -117,6 +117,10 @@
 }
 
 @layer base {
+  html,
+  body {
+    overflow-x: clip;
+  }
   * {
     @apply border-border outline-ring/50;
   }
@@ -150,6 +154,37 @@
   .prose a {
     @apply text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-foreground;
   }
+  .prose .external-link {
+    position: relative;
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in oklab, var(--foreground) 28%, transparent);
+    box-shadow: inset 0 -0.28em 0 color-mix(in oklab, var(--foreground) 10%, transparent);
+    padding-right: 0.04em;
+    transition:
+      color 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+  @media (hover: hover) {
+    .prose .external-link:hover {
+      color: var(--foreground);
+      border-bottom-color: color-mix(in oklab, var(--foreground) 55%, transparent);
+      box-shadow: inset 0 -0.62em 0 color-mix(in oklab, var(--foreground) 14%, transparent);
+    }
+    .prose .external-link:hover::after {
+      opacity: 1;
+      transform: translate3d(0.16em, -0.1em, 0) scale(1.06);
+      text-shadow: 0.08em 0.08em 0 color-mix(in oklab, var(--foreground) 12%, transparent);
+    }
+  }
+  .prose .external-link:focus-visible {
+    outline: none;
+    border-radius: 0.22em;
+    box-shadow:
+      0 0 0 2px var(--background),
+      0 0 0 4px color-mix(in oklab, var(--foreground) 20%, transparent),
+      inset 0 -0.62em 0 color-mix(in oklab, var(--foreground) 14%, transparent);
+  }
   .prose ul,
   .prose ol {
     @apply mt-5 space-y-2 pl-6 text-muted-foreground;
@@ -165,6 +200,115 @@
   }
   .prose img {
     @apply mt-6 rounded-2xl border border-border bg-muted;
+  }
+  .prose .post-gallery {
+    --gallery-inline-offset: 1.5rem;
+    --gallery-scroll-track: color-mix(in oklab, var(--foreground) 8%, transparent);
+    --gallery-scroll-thumb: color-mix(in oklab, var(--foreground) 32%, transparent);
+    --gallery-scroll-thumb-hover: color-mix(in oklab, var(--foreground) 46%, transparent);
+    @apply flex gap-4 overflow-x-auto pb-3;
+    margin-top: 2rem;
+    width: 100vw;
+    width: 100dvw;
+    margin-left: calc(50% - 50vw);
+    margin-left: calc(50% - 50dvw);
+    margin-right: calc(50% - 50vw);
+    margin-right: calc(50% - 50dvw);
+    padding-inline: var(--gallery-inline-offset);
+    scroll-padding-inline: var(--gallery-inline-offset);
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    scrollbar-gutter: stable;
+    scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    cursor: grab;
+  }
+  .prose .post-gallery:active {
+    cursor: grabbing;
+  }
+  .prose .post-gallery:focus-visible {
+    outline: none;
+  }
+  .prose .post-gallery::-webkit-scrollbar {
+    height: 12px;
+  }
+  .prose .post-gallery::-webkit-scrollbar-track {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    transition:
+      background-color 200ms ease,
+      border-color 200ms ease;
+  }
+  .prose .post-gallery::-webkit-scrollbar-thumb {
+    background: transparent;
+    border: 3px solid transparent;
+    border-radius: 9999px;
+    transition:
+      background-color 200ms ease,
+      border-color 200ms ease;
+  }
+  .prose .post-gallery::-webkit-scrollbar-thumb:hover {
+    background: var(--gallery-scroll-thumb-hover);
+  }
+  .prose .post-gallery::-webkit-scrollbar-thumb:active {
+    background: color-mix(in oklab, var(--gallery-scroll-thumb-hover) 88%, var(--foreground));
+  }
+  @media (hover: hover) {
+    .prose .post-gallery:hover,
+    .prose .post-gallery:focus-visible {
+      scrollbar-width: thin;
+      scrollbar-color: var(--gallery-scroll-thumb) var(--gallery-scroll-track);
+    }
+    .prose .post-gallery:hover::-webkit-scrollbar-track,
+    .prose .post-gallery:focus-visible::-webkit-scrollbar-track {
+      background: var(--gallery-scroll-track);
+      border-color: color-mix(in oklab, var(--foreground) 12%, transparent);
+    }
+    .prose .post-gallery:hover::-webkit-scrollbar-thumb,
+    .prose .post-gallery:focus-visible::-webkit-scrollbar-thumb {
+      background: var(--gallery-scroll-thumb);
+      border-color: var(--gallery-scroll-track);
+    }
+  }
+  @media (hover: none) {
+    .prose .post-gallery {
+      scrollbar-width: thin;
+      scrollbar-color: var(--gallery-scroll-thumb) var(--gallery-scroll-track);
+    }
+    .prose .post-gallery::-webkit-scrollbar-track {
+      background: var(--gallery-scroll-track);
+      border-color: color-mix(in oklab, var(--foreground) 12%, transparent);
+    }
+    .prose .post-gallery::-webkit-scrollbar-thumb {
+      background: var(--gallery-scroll-thumb);
+      border-color: var(--gallery-scroll-track);
+    }
+  }
+  @media (min-width: 51rem) {
+    .prose .post-gallery {
+      --gallery-inline-offset: calc(50vw - 24rem);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .prose .post-gallery {
+      scroll-behavior: auto;
+    }
+  }
+  .prose .post-gallery-item {
+    @apply m-0 shrink-0 overflow-hidden;
+    aspect-ratio: 1 / 1;
+    width: min(46vw, 22rem);
+    scroll-snap-align: start;
+  }
+  .prose .post-gallery-image {
+    @apply mt-0 block h-full w-full rounded-2xl border border-border bg-muted object-cover;
+  }
+  .prose .post-image {
+    cursor: zoom-in;
   }
   .prose hr {
     @apply my-10 border-border;

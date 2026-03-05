@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import BackLink from '@/components/back-link'
+import PostImageLightbox from '@/components/post-image-lightbox'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { getAllPosts, getPostBySlug } from '@/lib/posts'
@@ -76,11 +77,13 @@ export default async function PostPage({ params }: PostPageProps) {
       <Separator />
 
       <div
+        id="post-content"
         className="prose"
         dangerouslySetInnerHTML={{
           __html: post.contentHtml.trim() ? post.contentHtml : post.content,
         }}
       />
+      <PostImageLightbox containerId="post-content" />
 
       <BackLink
         fallbackHref="/posts"

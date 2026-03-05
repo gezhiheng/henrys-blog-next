@@ -11,6 +11,7 @@ import remarkGfm from 'remark-gfm'
 import remarkRehype from 'remark-rehype'
 import { visit } from 'unist-util-visit'
 import { formatDate, formatReadingTime } from '@/lib/format'
+import { siteConfig } from '@/lib/site'
 
 export interface PostFrontmatter {
   title: string
@@ -31,6 +32,57 @@ export type Post = PostMeta & {
 }
 
 const postsDirectory = path.join(process.cwd(), 'content')
+const publicDirectory = path.join(process.cwd(), 'public')
+const siteOrigin = new URL(siteConfig.url).origin
+
+interface RehypePoint {
+  line: number
+  column: number
+  offset?: number
+}
+
+interface RehypePosition {
+  start: RehypePoint
+  end: RehypePoint
+}
+
+interface RehypeNode {
+  type: string
+  data?: Record<string, unknown>
+  position?: RehypePosition
+}
+
+interface RehypeParent extends RehypeNode {
+  children: RehypeContent[]
+}
+
+interface RehypeText extends RehypeNode {
+  type: 'text'
+  value: string
+}
+
+interface RehypeComment extends RehypeNode {
+  type: 'comment'
+  value: string
+}
+
+interface RehypeDoctype extends RehypeNode {
+  type: 'doctype'
+}
+
+type RehypeContent = RehypeComment | RehypeDoctype | RehypeElement | RehypeText
+
+interface RehypeElement extends RehypeParent {
+  type: 'element'
+  tagName: string
+  properties: Record<string, unknown>
+  children: RehypeContent[]
+}
+
+interface RehypeRoot extends RehypeParent {
+  type: 'root'
+  children: RehypeContent[]
+}
 
 function getPostFilePaths() {
   if (!fs.existsSync(postsDirectory)) {
@@ -46,19 +98,190 @@ function getSlugFromFileName(fileName: string) {
   return fileName.replace(/\.md$/, '')
 }
 
+function versionPublicAssetSrc(src: string) {
+  if (!src.startsWith('/') || src.startsWith('//')) {
+    return src
+  }
+
+  const [srcWithoutHash, hash = ''] = src.split('#')
+  const [pathname, search = ''] = srcWithoutHash.split('?')
+  const assetPath = path.join(publicDirectory, pathname.replace(/^\/+/, ''))
+
+  if (!fs.existsSync(assetPath)) {
+    return src
+  }
+
+  const assetStat = fs.statSync(assetPath)
+  if (!assetStat.isFile()) {
+    return src
+  }
+
+  const params = new URLSearchParams(search)
+  params.set('v', Math.trunc(assetStat.mtimeMs).toString())
+
+  const query = params.toString()
+  const hashSuffix = hash ? `#${hash}` : ''
+
+  return `${pathname}?${query}${hashSuffix}`
+}
+
 function rehypeImageDefaults() {
-  return (tree: unknown) => {
+  return (tree: RehypeRoot) => {
     visit(tree, 'element', (node) => {
       if (node.tagName !== 'img') {
         return
       }
 
+      const src = typeof node.properties?.src === 'string'
+        ? versionPublicAssetSrc(node.properties.src)
+        : node.properties?.src
+
       node.properties = {
         ...node.properties,
+        src,
         loading: 'lazy',
         decoding: 'async',
         className: ['post-image'],
       }
+    })
+  }
+}
+
+function isElementNode(node: RehypeContent): node is RehypeElement {
+  return node.type === 'element'
+}
+
+function isWhitespaceTextNode(node: RehypeContent): node is RehypeText {
+  return node.type === 'text' && node.value.trim() === ''
+}
+
+function extractGalleryImages(node: RehypeElement) {
+  if (node.tagName !== 'p') {
+    return []
+  }
+
+  const images: RehypeElement[] = []
+
+  for (const child of node.children) {
+    if (isWhitespaceTextNode(child)) {
+      continue
+    }
+
+    if (isElementNode(child) && child.tagName === 'img') {
+      images.push(child)
+      continue
+    }
+
+    return []
+  }
+
+  return images.length > 1 ? images : []
+}
+
+function toStringTokenArray(value: unknown) {
+  if (Array.isArray(value)) {
+    return value.filter((item): item is string => typeof item === 'string')
+  }
+
+  if (typeof value === 'string') {
+    return value.split(/\s+/).filter(Boolean)
+  }
+
+  return []
+}
+
+function appendClassName(node: RehypeElement, className: string) {
+  const classNames = toStringTokenArray(node.properties?.className)
+
+  if (!classNames.includes(className)) {
+    classNames.push(className)
+  }
+
+  node.properties = {
+    ...(node.properties ?? {}),
+    className: classNames,
+  }
+}
+
+function isExternalHref(href: string) {
+  try {
+    const url = new URL(href, siteConfig.url)
+    return (url.protocol === 'http:' || url.protocol === 'https:') && url.origin !== siteOrigin
+  }
+  catch {
+    return false
+  }
+}
+
+function rehypeExternalLinks() {
+  return (tree: RehypeRoot) => {
+    visit(tree, 'element', (node) => {
+      if (node.tagName !== 'a') {
+        return
+      }
+
+      const href = typeof node.properties?.href === 'string'
+        ? node.properties.href
+        : ''
+
+      if (!href || !isExternalHref(href)) {
+        return
+      }
+
+      const relTokens = toStringTokenArray(node.properties?.rel)
+
+      for (const rel of ['noopener', 'noreferrer']) {
+        if (!relTokens.includes(rel)) {
+          relTokens.push(rel)
+        }
+      }
+
+      appendClassName(node, 'external-link')
+      node.properties = {
+        ...(node.properties ?? {}),
+        target: '_blank',
+        rel: relTokens,
+      }
+    })
+  }
+}
+
+function rehypeHorizontalGallery() {
+  return (tree: RehypeRoot) => {
+    visit(tree, 'element', (node, index, parent) => {
+      if (typeof index !== 'number' || !parent) {
+        return
+      }
+
+      const images = extractGalleryImages(node)
+      if (images.length < 2) {
+        return
+      }
+
+      const gallery: RehypeElement = {
+        type: 'element',
+        tagName: 'div',
+        properties: {
+          'className': ['post-gallery'],
+          'tabIndex': 0,
+          'role': 'region',
+          'aria-label': 'Horizontal image gallery',
+        },
+        children: images.map((image) => {
+          appendClassName(image, 'post-gallery-image')
+
+          return {
+            type: 'element',
+            tagName: 'figure',
+            properties: {
+              className: ['post-gallery-item'],
+            },
+            children: [image],
+          }
+        }),
+      }
+
+      parent.children[index] = gallery
     })
   }
 }
@@ -112,6 +335,8 @@ export function getPostBySlug(slug: string): Post | null {
       },
     })
     .use(rehypeImageDefaults)
+    .use(rehypeExternalLinks)
+    .use(rehypeHorizontalGallery)
     .use(rehypeStringify)
     .processSync(content)
     .toString()
