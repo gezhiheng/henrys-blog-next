@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getAllPosts } from '@/lib/posts'
+import { cn } from '@/lib/utils'
 
 export const metadata = {
   title: 'Posts',
@@ -32,7 +33,13 @@ export default function PostsPage () {
 
       <div className='space-y-16'>
         {years.map(year => (
-          <section key={year} className='relative'>
+          <section
+            key={year}
+            className={cn(
+              'relative',
+              postsByYear[year].length === 1 && 'pb-0 md:pb-8'
+            )}
+          >
             <div className='pointer-events-none absolute -top-6 left-0 -z-10 text-[4.5rem] font-semibold leading-none text-foreground/5 dark:text-foreground/12 md:text-[6rem]'>
               {year}
             </div>
@@ -50,6 +57,7 @@ export default function PostsPage () {
                       {post.formattedDate}
                       {' '}
                       ·
+                      {' '}
                       {post.readingTime}
                     </span>
                   </div>
