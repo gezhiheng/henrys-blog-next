@@ -4,6 +4,7 @@ import DotsBackground from '@/components/dots-background'
 import SiteFooter from '@/components/site-footer'
 import SiteHeader from '@/components/site-header'
 import { siteConfig } from '@/lib/site'
+import { generateSocialMetadata } from '@/lib/social-metadata'
 import './globals.css'
 
 const inter = Inter({
@@ -23,28 +24,17 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
 })
 
+const defaultSocialMetadata = generateSocialMetadata()
+
 export const metadata: Metadata = {
+  ...defaultSocialMetadata.metadata,
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: siteConfig.title,
+    default: defaultSocialMetadata.resolved.title,
     template: `%s — ${siteConfig.name}`,
   },
-  description: siteConfig.description,
   icons: {
     icon: '/favicon.svg',
-  },
-  openGraph: {
-    title: siteConfig.title,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    siteName: siteConfig.name,
-    type: 'website',
-    locale: 'zh_CN',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: siteConfig.title,
-    description: siteConfig.description,
   },
 }
 

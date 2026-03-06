@@ -9,6 +9,7 @@ export const siteConfig = {
     'Hey!我是葛智恒 A.K.A. Henry Ge',
   url: siteUrl,
   author: 'Henry',
+  twitterHandle: '@h3nryge',
   links: {
     twitter: 'https://x.com/h3nryge',
     github: 'https://github.com/gezhiheng',

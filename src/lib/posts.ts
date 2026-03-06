@@ -17,6 +17,7 @@ export interface PostFrontmatter {
   title: string
   description: string
   date: string
+  image?: string
   tags?: string[]
 }
 
@@ -301,6 +302,7 @@ export function getAllPosts(): PostMeta[] {
       title: String(data.title),
       description: String(data.description),
       date: String(data.date),
+      image: typeof data.image === 'string' ? data.image : undefined,
       tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
       readingTime: formatReadingTime(stats.minutes),
       formattedDate: formatDate(String(data.date)),
@@ -346,6 +348,7 @@ export function getPostBySlug(slug: string): Post | null {
     title: String(data.title),
     description: String(data.description),
     date: String(data.date),
+    image: typeof data.image === 'string' ? data.image : undefined,
     tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
     readingTime: formatReadingTime(stats.minutes),
     formattedDate: formatDate(String(data.date)),

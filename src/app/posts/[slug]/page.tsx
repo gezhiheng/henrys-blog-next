@@ -1,22 +1,23 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import BackLink from '@/components/back-link'
 import PostImageLightbox from '@/components/post-image-lightbox'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { getAllPosts, getPostBySlug } from '@/lib/posts'
-import { siteConfig } from '@/lib/site'
+import { generateSocialMetadata, getPostSocialImagePath } from '@/lib/social-metadata'
 
 interface PostPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export function generateStaticParams() {
   return getAllPosts().map(post => ({ slug: post.slug }))
 }
 
-export async function generateMetadata({ params }: PostPageProps) {
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params
   const post = getPostBySlug(slug)
 
@@ -24,23 +25,15 @@ export async function generateMetadata({ params }: PostPageProps) {
     return {}
   }
 
-  return {
+  const socialMetadata = generateSocialMetadata({
     title: post.title,
     description: post.description,
-    openGraph: {
-      title: post.title,
-      description: post.description,
-      type: 'article',
-      publishedTime: post.date,
-      url: `${siteConfig.url}/posts/${post.slug}`,
-      locale: 'zh_CN',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.description,
-    },
-  }
+    image: post.image ?? getPostSocialImagePath(post.slug),
+    url: `/posts/${post.slug}`,
+    type: 'article',
+  })
+
+  return socialMetadata.metadata
 }
 
 export default async function PostPage({ params }: PostPageProps) {
