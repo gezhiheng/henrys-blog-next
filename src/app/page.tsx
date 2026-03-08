@@ -56,7 +56,7 @@ export default function Home() {
         </div>
         <div className="space-y-5">
           {latestPosts.map(post => (
-            <article key={post.slug} className="space-y-2">
+            <article key={post.slug} className="space-y-1">
               <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-4">
                 <span className="text-xs text-muted-foreground">
                   {post.formattedDate}
