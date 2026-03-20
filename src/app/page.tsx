@@ -1,7 +1,16 @@
+import type { ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Separator } from '@/components/ui/separator'
 import { getAllPosts } from '../lib/posts'
+
+function HandUnderline({ children }: { children: ReactNode }) {
+  return (
+    <span className="relative inline-block before:absolute before:left-[2%] before:right-[8%] before:bottom-0 before:h-0.5 before:-rotate-1 before:rounded-full before:bg-sky-400/75 before:content-[''] after:absolute after:left-0 after:right-[3%] after:bottom-0.75 after:h-0.5 after:rotate-1 after:rounded-full after:bg-blue-500/40 after:content-[''] dark:before:bg-sky-300/40 dark:after:bg-blue-300/35">
+      {children}
+    </span>
+  )
+}
 
 export default function Home() {
   const posts = getAllPosts()
@@ -9,7 +18,7 @@ export default function Home() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-12">
-      <section className="space-y-4">
+      <section className="space-y-5 text-pretty md:space-y-6">
         <div className="flex flex-wrap items-center gap-4">
           <h1 className="text-3xl font-semibold md:text-4xl">
             Henry Ge
@@ -23,20 +32,23 @@ export default function Home() {
             priority
           />
         </div>
-        <p className="text-base text-muted-foreground md:text-lg">
-          Hey! 我是葛智恒，A.K.A. Henry Ge，一名前端开发工程师。
+        <p className="text-base leading-7 text-muted-foreground md:text-lg md:leading-8">
+          <span>Hey! 我是葛智恒，A.K.A. Henry Ge，一名前端开发工程师。</span>
         </p>
-        <p className="text-base text-muted-foreground md:text-lg">
-          目前工作中主要使用 Vue.js 及其周边工具链，偶尔参与开源。做过 Java 开发，也曾在创业公司独立负责过项目。最近对 React.js / Next.js 感兴趣，正在系统学习中。
+        <p className="text-base leading-7 text-muted-foreground md:text-lg md:leading-8">
+          <span>目前工作中主要使用 Vue.js 及其周边工具链，偶尔参与开源。做过 Java 开发，也曾在创业公司独立负责过项目。最近对 React.js / Next.js 感兴趣，正在系统学习中。</span>
         </p>
-        <p className="text-base text-muted-foreground md:text-lg">
-          我一直以来的观念是「不给自己设限」，所以有什么感兴趣的技术都会接触。比如曾经学过一段时间 Rust，很喜欢它明确语义的设计哲学和优雅的错误处理。
+        <p className="text-base leading-7 text-muted-foreground md:text-lg md:leading-8">
+          <span>我一直以来的观念是「不给自己设限」，所以有什么感兴趣的技术都会接触。比如曾经学过一段时间 Rust，很喜欢它明确语义的设计哲学和优雅的错误处理。</span>
         </p>
-        <p className="text-base text-muted-foreground md:text-lg">
-          代码之外和工作之余，我喜欢打游戏、追番、阅读、打篮球、看球赛和弹尤克里里。喜欢的书包括《只是为了好玩》、《哈利·波特》和《明朝那些事儿》。另外我还是斯蒂芬库里和金州勇士的忠实球迷，Let&apos;s go Warriors!
+        <p className="text-base leading-7 text-muted-foreground md:text-lg md:leading-8">
+          <span>代码之外和工作之余，我喜欢打游戏、追番、阅读、打篮球、看球赛和弹尤克里里。喜欢的书包括《只是为了好玩》、《哈利·波特》和《明朝那些事儿》。另外我还是斯蒂芬库里和金州勇士的忠实球迷，Let&apos;s go Warriors!</span>
         </p>
-        <p className="text-base text-muted-foreground md:text-lg">
-          目前在不断探索与尝试，希望找到一个真正热爱的方向，长期投入，同时也保留对生活本身的感受与享受。对我而言，在离开世界之前，一切都只是过程。
+        <p className="text-base leading-7 text-muted-foreground md:text-lg md:leading-8">
+          <span>目前在不断探索与尝试，希望找到一个真正热爱的方向，长期投入，同时也保留对生活本身的感受与享受。</span>
+        </p>
+        <p className="text-base leading-7 text-muted-foreground md:text-lg md:leading-8">
+          <HandUnderline>离开世界之前，一切都是过程。</HandUnderline>
         </p>
       </section>
 
