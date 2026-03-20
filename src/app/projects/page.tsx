@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
@@ -18,7 +19,7 @@ interface Project {
   img?: string
 }
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Projects',
   description: `A collection of projects I&apos;m working on and have worked on.`
 }

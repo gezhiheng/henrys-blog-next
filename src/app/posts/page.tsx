@@ -1,8 +1,9 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllPosts } from '@/lib/posts'
 import { cn } from '@/lib/utils'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Posts',
   description: 'Where I share thoughts, life, and more.'
 }
