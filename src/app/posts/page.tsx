@@ -32,19 +32,19 @@ export default function PostsPage () {
         </p>
       </div>
 
-      <div className='space-y-16'>
+      <div className='space-y-12 md:space-y-18'>
         {years.map(year => (
           <section
             key={year}
             className={cn(
-              'relative',
+              'relative pt-4 md:pt-6',
               postsByYear[year].length === 1 && 'pb-0 md:pb-8'
             )}
           >
-            <div className='pointer-events-none absolute -top-6 left-0 -z-10 text-[4.5rem] font-semibold leading-none text-foreground/5 dark:text-foreground/12 md:text-[6rem]'>
+            <div className='pointer-events-none absolute -top-4 -left-5 -z-10 text-[5rem] font-semibold leading-none tracking-tight text-foreground/3 dark:text-foreground/8 md:-top-7 md:-left-10 lg:-left-12 md:text-[7.5rem]'>
               {year}
             </div>
-            <div className='space-y-5'>
+            <div className='relative z-10 space-y-6'>
               {postsByYear[year].map(post => (
                 <article key={post.slug} className='space-y-2'>
                   <div className='flex md:flex-row flex-col flex-wrap items-baseline gap-3'>

@@ -54,7 +54,7 @@ export default function Home() {
             查看全部
           </Link>
         </div>
-        <div className="space-y-5">
+        <div className="space-y-6">
           {latestPosts.map(post => (
             <article key={post.slug} className="space-y-1">
               <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-4">
