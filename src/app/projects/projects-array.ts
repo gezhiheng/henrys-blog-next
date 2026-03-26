@@ -15,11 +15,11 @@ export const tagStyles: Record<string, string> = {
 
 const projects = [
   {
-    title: 'json2pptx',
-    href: 'https://json2pptx.henryge.com/',
-    img: '/images/projects-intro/json2pptx.png',
-    description: 'json转pptx的在线编辑器，支持实时预览',
-    tags: ['React', 'SPA'],
+    title: 'Pipto',
+    href: 'https://pipto.henryge.com/',
+    img: '/images/projects-intro/pipto.png',
+    description: '结构优先的 JSON/PPT 转换工具链',
+    tags: ['PPT', 'JSON'],
   },
   {
     title: 'ibuild',
