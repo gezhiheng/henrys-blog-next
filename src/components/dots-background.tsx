@@ -94,7 +94,7 @@ export default function DotsBackground() {
       const height = window.innerHeight
       const t = Date.now() / 2500
       const isDark = document.documentElement.classList.contains('dark')
-      const dotRgb = isDark ? '100, 100, 100' : '180, 180, 180'
+      const dotRgb = isDark ? '120, 120, 120' : '180, 180, 180'
 
       ctx.clearRect(0, 0, width, height)
       ctx.fillStyle = isDark ? '#000000' : '#ffffff'
